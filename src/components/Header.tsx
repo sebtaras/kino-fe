@@ -16,7 +16,7 @@ import MenuItem from "@mui/material/MenuItem";
 
 export default function Header() {
 	const navigate = useNavigate();
-	const pages = ["Schedule", "Search"];
+	const pages = ["schedule", "Search"];
 	const settings = ["Logout"];
 
 	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);

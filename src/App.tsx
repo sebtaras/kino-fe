@@ -9,6 +9,7 @@ import queryClient from "./utils/queryClient";
 import { UserProvider } from "./context/UserContext";
 import { AxiosProvider } from "./context/AxiosContext";
 import Schedule from "./screens/Schedule";
+import Search from "./screens/Search";
 
 function App() {
 	return (
@@ -20,7 +21,8 @@ function App() {
 					<BrowserRouter>
 						<Routes>
 							<Route path="/schedule" element={<Schedule />} />
-							{/* <Route path='/profile' element={<ProfilePage />} /> */}
+							<Route path="/search" element={<Search />} />
+							{/* <Route path="/profile" element={<Profile />} /> */}
 							<Route path="/login" element={<LoginPage />} />
 							<Route path="/register" element={<RegisterPage />} />
 							<Route path="*" element={<Navigate to="/schedule" replace={true} />} />

@@ -9,7 +9,7 @@ const LoginPage = () => {
 
 	const { isLoading, mutate: login } = useLogin(setErrorMsg);
 	return (
-		<div>
+		<>
 			<Container
 				maxWidth="md"
 				style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -19,6 +19,7 @@ const LoginPage = () => {
 				<TextField
 					placeholder="Username..."
 					variant="filled"
+					size="small"
 					value={username}
 					onChange={(e) => setUsername(e.target.value)}
 				/>
@@ -38,7 +39,7 @@ const LoginPage = () => {
 					Login
 				</Button>
 			</Container>
-		</div>
+		</>
 	);
 };
 
