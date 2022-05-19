@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from "axios";
 import { createContext, ReactNode, useMemo } from "react";
 import { useUserContext } from "../hooks/useUserContext";
 import { baseURL } from "../utils/constants";
+import { loadUser } from "../utils/functions/loadUser";
 
 interface Props {
 	children: ReactNode;
@@ -12,8 +13,7 @@ export const AxiosContext = createContext<AxiosInstance>(
 );
 
 export const AxiosProvider = ({ children }: Props) => {
-	const { user } = useUserContext();
-
+	const user = loadUser();
 	const auth = useMemo(() => {
 		const axiosClient = axios.create({ baseURL: baseURL, timeout: 5000 });
 

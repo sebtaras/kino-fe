@@ -22,15 +22,12 @@ export const useRegister = (
 				password,
 			});
 			if (response.status === 200) {
-				setUser({
-					accessToken: response.data.token,
-					id: response.data.id,
-					name: username,
-				});
 				localStorage.setItem(
 					"user",
 					JSON.stringify({
 						accessToken: response.data.token,
+						isAdmin: response.data.isAdmin ? response.data.isAdmin : false,
+
 						id: response.data.id,
 						name: username,
 					})

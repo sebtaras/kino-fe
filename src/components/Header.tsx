@@ -13,14 +13,21 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { OptionalUser } from "../types/OptionalUser";
+import { loadUser } from "../utils/functions/loadUser";
 
 export default function Header() {
 	const navigate = useNavigate();
-	const pages = ["schedule", "Search"];
+	const pages = ["Schedule", "Search"];
 	const settings = ["Logout"];
 
 	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 	const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+	const user = loadUser();
+
+	if (user?.isAdmin) {
+		pages.push("Screenings");
+	}
 
 	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorElNav(event.currentTarget);
@@ -119,46 +126,61 @@ export default function Header() {
 							))}
 						</Box>
 
-						<Box sx={{ flexGrow: 0 }}>
-							<Tooltip title="Open settings">
-								<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-									<Avatar alt="user" />
-								</IconButton>
-							</Tooltip>
-							<Menu
-								sx={{ mt: "45px" }}
-								id="menu-appbar"
-								anchorEl={anchorElUser}
-								anchorOrigin={{
-									vertical: "top",
-									horizontal: "right",
-								}}
-								keepMounted
-								transformOrigin={{
-									vertical: "top",
-									horizontal: "right",
-								}}
-								open={Boolean(anchorElUser)}
-								onClose={handleCloseUserMenu}
-							>
-								{settings.map((setting) => (
-									<MenuItem
-										key={setting}
-										onClick={() => {
-											handleCloseNavMenu();
-											if (setting === "Profile") {
-												navigate("/Profile");
-											} else {
-												localStorage.clear();
-												navigate("/login");
-											}
+						{user ? (
+							<>
+								<Box sx={{ flexGrow: 0 }}>
+									<Tooltip title="Open settings">
+										<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+											<Avatar alt="user" />
+										</IconButton>
+									</Tooltip>
+									<Menu
+										sx={{ mt: "45px" }}
+										id="menu-appbar"
+										anchorEl={anchorElUser}
+										anchorOrigin={{
+											vertical: "top",
+											horizontal: "right",
 										}}
+										keepMounted
+										transformOrigin={{
+											vertical: "top",
+											horizontal: "right",
+										}}
+										open={Boolean(anchorElUser)}
+										onClose={handleCloseUserMenu}
 									>
-										<Typography textAlign="center">{setting}</Typography>
-									</MenuItem>
-								))}
-							</Menu>
-						</Box>
+										{settings.map((setting) => (
+											<MenuItem
+												key={setting}
+												onClick={() => {
+													handleCloseNavMenu();
+													if (setting === "Profile") {
+														navigate("/Profile");
+													} else {
+														localStorage.clear();
+														navigate("/login");
+													}
+												}}
+											>
+												<Typography textAlign="center">{setting}</Typography>
+											</MenuItem>
+										))}
+									</Menu>
+								</Box>
+							</>
+						) : (
+							<Button
+								key={"login"}
+								onClick={(e) => {
+									handleCloseNavMenu();
+									navigate(`/login`);
+								}}
+								sx={{ my: 2, color: "white", display: "block" }}
+							>
+								<Typography>{"LOGIN"}</Typography>
+							</Button>
+						)}
 					</Toolbar>
 				</Container>
 			</AppBar>

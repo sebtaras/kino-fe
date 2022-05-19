@@ -2,6 +2,7 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import LoginPage from "./screens/LoginPage";
 import RegisterPage from "./screens/RegisterPage";
 import { QueryClientProvider } from "react-query";
@@ -10,16 +11,17 @@ import { UserProvider } from "./context/UserContext";
 import { AxiosProvider } from "./context/AxiosContext";
 import Schedule from "./screens/Schedule";
 import Search from "./screens/Search";
+import Screenings from "./screens/Screenings";
+import { LocalizationProvider } from "@mui/x-date-pickers";
 
 function App() {
 	return (
-		// <ThemeProvider theme={theme}>
-		// <AuthContext.Provider value={initialValue}>
 		<QueryClientProvider client={queryClient}>
 			<UserProvider>
 				<AxiosProvider>
 					<BrowserRouter>
 						<Routes>
+							<Route path="/screenings" element={<Screenings />} />
 							<Route path="/schedule" element={<Schedule />} />
 							<Route path="/search" element={<Search />} />
 							{/* <Route path="/profile" element={<Profile />} /> */}
@@ -31,8 +33,6 @@ function App() {
 				</AxiosProvider>
 			</UserProvider>
 		</QueryClientProvider>
-		//</AuthContext.Provider>
-		// </ThemeProvider>
 	);
 }
 

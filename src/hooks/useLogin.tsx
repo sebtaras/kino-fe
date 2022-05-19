@@ -22,20 +22,20 @@ export const useLogin = (setErrorMsg: React.Dispatch<React.SetStateAction<string
 				password,
 			});
 			if (response.status === 200) {
-				setUser({
-					accessToken: response.data.token,
-					id: response.data.id,
-					name: username,
-				});
 				localStorage.setItem(
 					"user",
 					JSON.stringify({
 						accessToken: response.data.token,
+						isAdmin: response.data.isAdmin ? response.data.isAdmin : false,
 						id: response.data.id,
 						name: username,
 					})
 				);
-				navigate("/schedule");
+				if (response.data.isAdmin) {
+					navigate("/screenings");
+				} else {
+					navigate("/schedule");
+				}
 			}
 		} catch (error: any) {
 			if (error.response.status === 400) {
