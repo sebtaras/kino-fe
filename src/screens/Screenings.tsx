@@ -15,21 +15,17 @@ import Header from "../components/Header";
 import { useMovieInfo } from "../hooks/useMovieInfo";
 import { useMovieList } from "../hooks/useMovieList";
 import { OptionalUser } from "../types/OptionalUser";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { useHalls } from "../hooks/useHalls";
 import { Hall, Screening } from "../types/FilmInfo";
-import TimePicker from "react-time-picker";
 import { useScreeningsInHall } from "../hooks/useScreeningsInHall";
-import { timestampToDate } from "../utils/functions/timestampToDate";
 import { timestampToHours } from "../utils/functions/timestampToHours";
 import { minutesToHours } from "../utils/functions/minutesToHours";
 import { useCreateScreening } from "../hooks/useCreateScreening";
+import DateTimePicker from "react-datetime-picker";
 
 const Screenings = () => {
 	const navigate = useNavigate();
 	const [movieId, setMovieId] = useState<null | number>(null);
-	const [time, setTime] = useState<any>("10:00");
 	const [hall, setHall] = useState<null | number>(null);
 	const [date, setDate] = useState(new Date());
 	const [price, setPrice] = useState(40);
@@ -39,17 +35,11 @@ const Screenings = () => {
 		date.toISOString().split("T")[0],
 		hall!
 	);
-	const { mutate: createScreening } = useCreateScreening(
-		movieId!,
-		hall!,
-		time,
-		date.toISOString(),
-		price
-	);
+	const { mutate: createScreening } = useCreateScreening(movieId!, hall!, date, price);
 	const { data: halls, isLoading: hallsLoading } = useHalls();
 	const queryClient = useQueryClient();
 
-	console.log("VALUESSSSSSS", hall, movieId, time, date, price);
+	console.log("DATE IS", date.toISOString());
 
 	useEffect(() => {
 		const user = localStorage.getItem("user") as OptionalUser;
@@ -57,7 +47,7 @@ const Screenings = () => {
 			navigate("/schedule");
 		}
 	});
-	console.log(date);
+
 	return (
 		<>
 			<Header />
@@ -76,7 +66,7 @@ const Screenings = () => {
 					<Select
 						style={{ width: "20rem", marginLeft: "1rem" }}
 						value={movieId}
-						defaultValue={0}
+						defaultValue={null}
 						placeholder={"Pick a movie..."}
 						label="Movie"
 						onChange={(e) => {
@@ -109,9 +99,24 @@ const Screenings = () => {
 				</Container>
 				<Container>
 					<Box style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+						{movieInfo?.durationMinutes && (
+							<Typography style={{ marginTop: "1rem" }}>
+								Movie duration: {minutesToHours(movieInfo.durationMinutes)}
+							</Typography>
+						)}
+					</Box>
+					<Box style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
 						<Typography>Date</Typography>
 						<Box style={{ padding: "1rem" }}>
-							<DatePicker selected={date} onChange={(date: Date) => setDate(date)} />
+							<DateTimePicker
+								locale="hr-HR"
+								onChange={(date: Date) => {
+									console.log("CHANGING DATE TO:", date);
+									setDate(date);
+								}}
+								value={date}
+								disableClock={true}
+							/>
 						</Box>
 					</Box>
 					<Box style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
@@ -125,7 +130,11 @@ const Screenings = () => {
 							<MenuItem disabled={true}>Pick a movie...</MenuItem>
 							{halls &&
 								halls.map((hall: Hall) => {
-									return <MenuItem value={hall.id}>{hall.name}</MenuItem>;
+									return (
+										<MenuItem key={hall.id} value={hall.id}>
+											{hall.name}
+										</MenuItem>
+									);
 								})}
 						</Select>
 					</Box>
@@ -146,13 +155,13 @@ const Screenings = () => {
 						style={{
 							display: "flex",
 							flexWrap: "wrap",
-							marginBottom: "1rem",
 						}}
 					>
 						{screenings &&
 							screenings.map((screening: Screening) => {
 								return (
 									<Box
+										key={screening.id}
 										style={{
 											marginRight: "1rem",
 											border: "1px solid #888",
@@ -177,17 +186,7 @@ const Screenings = () => {
 							<Typography>Nema projekcija u ovoj dvorani</Typography>
 						)}
 					</Box>
-					<Box style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-						<Typography>Hour</Typography>
-						<Box style={{ marginLeft: "1rem" }}>
-							<TimePicker onChange={(value: any) => setTime(value)} value={time} />
-						</Box>
-						{movieInfo?.durationMinutes && (
-							<Typography style={{ marginLeft: "1rem" }}>
-								Movie duration: {minutesToHours(movieInfo.durationMinutes)}
-							</Typography>
-						)}
-					</Box>
+
 					<Box>
 						<Box
 							style={{

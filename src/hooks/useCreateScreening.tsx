@@ -1,18 +1,18 @@
 import { useMutation, useQueryClient } from "react-query";
-import { createTimestamp } from "../utils/functions/createTimestamp";
+import { cleanTimestamp } from "../utils/functions/cleanTimestamp";
 import { loadUser } from "../utils/functions/loadUser";
 import { useAxiosContext } from "./useAxiosContext";
 
 export const useCreateScreening = (
 	filmId: number,
 	hallId: number,
-	time: string,
-	date: string,
+	date: Date,
 	basePrice: number
 ) => {
 	const axios = useAxiosContext();
-	const startAt = createTimestamp(date, time);
-
+	const tempDate = new Date(date.getTime());
+	const realDate = new Date(tempDate.setHours(tempDate.getHours() + 2));
+	const startAt = cleanTimestamp(realDate.toISOString());
 	const createScreening = async () => {
 		try {
 			const response = await axios.post("screenings", {
@@ -21,6 +21,9 @@ export const useCreateScreening = (
 				startAt,
 				basePrice,
 			});
+			if (response.status === 200) {
+				alert("Screening added!");
+			}
 		} catch (error: any) {}
 	};
 

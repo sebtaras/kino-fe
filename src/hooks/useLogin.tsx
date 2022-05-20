@@ -4,7 +4,6 @@ import { useAxiosContext } from "./useAxiosContext";
 import { useUserContext } from "./useUserContext";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-
 interface LoginParams {
 	username: string;
 	password: string;

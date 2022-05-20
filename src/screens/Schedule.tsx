@@ -12,7 +12,6 @@ const Schedule = () => {
 	const navigate = useNavigate();
 	const [selectedTab, setSelectedTab] = useState(getDate(0));
 	const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-		console.log(newValue);
 		setSelectedTab(newValue);
 	};
 	const dates = [
