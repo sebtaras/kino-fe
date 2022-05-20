@@ -13,6 +13,7 @@ export const usePostReview = (filmId: number, score: number, text: string) => {
 				score,
 				text,
 			});
+			return response;
 		} catch (error: any) {}
 	};
 

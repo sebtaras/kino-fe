@@ -7,6 +7,7 @@ import { useUserContext } from "../hooks/useUserContext";
 import {
 	Box,
 	Button,
+	CardMedia,
 	CircularProgress,
 	Container,
 	InputLabel,
@@ -88,9 +89,29 @@ const Search = () => {
 							flexDirection: "column",
 						}}
 					>
-						<Typography>{movieInfo.title}</Typography>
-						<Typography>{movieInfo.durationMinutes}min</Typography>
-						<Typography>{movieInfo.genres.join(", ")}</Typography>
+						<Box
+							key={movieInfo.id}
+							style={{
+								padding: "1rem",
+								display: "flex",
+								flexWrap: "wrap",
+							}}
+						>
+							<CardMedia
+								style={{ width: "10rem", height: "15rem", marginRight: "1rem" }}
+								image={movieInfo.imageUrl}
+							/>
+							<Box style={{}}>
+								<Typography variant="h5">{movieInfo.title}</Typography>
+								<Typography>Trajanje: {movieInfo.durationMinutes}min</Typography>
+								<Typography>Zanr: {movieInfo.genres.join(", ")}</Typography>
+								<Typography
+									style={{ maxWidth: "35rem", minWidth: "10rem", flexWrap: "wrap" }}
+								>
+									Opis: {movieInfo.description}
+								</Typography>
+							</Box>
+						</Box>
 					</Container>
 				)}
 				{localStorage.getItem("user") && movieId && movieInfo && (
@@ -139,7 +160,7 @@ const Search = () => {
 							disabled={!review || (!rating && rating !== 0)}
 							onClick={() => {
 								postReview();
-								queryClient.refetchQueries(["movieInfo, id"]);
+								queryClient.refetchQueries(["movieInfo", movieId]);
 							}}
 						>
 							Post Review
@@ -163,7 +184,7 @@ const Search = () => {
 										alignItems: "center",
 									}}
 								>
-									<Typography style={{ flex: 1 }}>JokerReviews</Typography>
+									<Typography style={{ flex: 1 }}>{review.userName}</Typography>
 									<Typography style={{ flex: 1, marginLeft: "1rem" }}>
 										Score: {review.score}/10
 									</Typography>

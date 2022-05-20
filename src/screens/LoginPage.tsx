@@ -1,5 +1,7 @@
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 import { useLogin } from "../hooks/useLogin";
 
 const LoginPage = () => {
@@ -7,24 +9,30 @@ const LoginPage = () => {
 	const [password, setPassword] = useState("");
 	const [errorMsg, setErrorMsg] = useState("");
 
+	const navigate = useNavigate();
 	const { isLoading, mutate: login } = useLogin(setErrorMsg);
 	return (
 		<>
+			<Header />
 			<Container
 				maxWidth="md"
-				style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					alignItems: "center",
+					marginTop: "2rem",
+				}}
 			>
-				<Typography>Kino buraz</Typography>
 				{errorMsg && <Typography align="left">{errorMsg}</Typography>}
 				<TextField
-					placeholder="Username..."
+					placeholder="Korisnicko ime..."
 					variant="filled"
 					size="small"
 					value={username}
 					onChange={(e) => setUsername(e.target.value)}
 				/>
 				<TextField
-					placeholder="Password..."
+					placeholder="Lozinka..."
 					variant="filled"
 					type={"password"}
 					value={password}
@@ -36,7 +44,10 @@ const LoginPage = () => {
 					variant="contained"
 					onClick={() => login({ username, password })}
 				>
-					Login
+					Prijava
+				</Button>
+				<Button style={{ padding: "1rem" }} onClick={() => navigate("/register")}>
+					Nemas racun?
 				</Button>
 			</Container>
 		</>

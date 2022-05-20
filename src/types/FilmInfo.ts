@@ -1,6 +1,7 @@
 export type Review = {
 	id: number;
 	userId: number;
+	userName: string;
 	filmId: number;
 	score: number;
 	text: string;
@@ -14,6 +15,16 @@ export type Screening = {
 	filmId: number;
 	hallId: number;
 	id: number;
+	seats?: Seat[];
+};
+
+export type Seat = {
+	id: number;
+	number: number;
+	row: number;
+	type: string;
+	priceCoefficient: number;
+	isAvailable: boolean;
 };
 
 export type FilmInfo = {
