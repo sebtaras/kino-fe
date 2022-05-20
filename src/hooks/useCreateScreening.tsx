@@ -13,6 +13,7 @@ export const useCreateScreening = (
 	const tempDate = new Date(date.getTime());
 	const realDate = new Date(tempDate.setHours(tempDate.getHours() + 2));
 	const startAt = cleanTimestamp(realDate.toISOString());
+	const queryClient = useQueryClient();
 	const createScreening = async () => {
 		try {
 			const response = await axios.post("screenings", {
@@ -29,5 +30,8 @@ export const useCreateScreening = (
 
 	return useMutation(createScreening, {
 		onError: (error) => console.log(error),
+		onSuccess: () => {
+			queryClient.refetchQueries(["screeningsHall", startAt.split("T")[0] + hallId]);
+		},
 	});
 };

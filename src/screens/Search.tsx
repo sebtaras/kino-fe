@@ -160,7 +160,6 @@ const Search = () => {
 							disabled={!review || (!rating && rating !== 0)}
 							onClick={() => {
 								postReview();
-								queryClient.refetchQueries(["movieInfo", movieId]);
 							}}
 						>
 							Post Review
