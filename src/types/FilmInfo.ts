@@ -15,17 +15,23 @@ export type Screening = {
 	filmId: number;
 	hallId: number;
 	id: number;
-	seats?: Seat[];
+	seatRows: Row[];
+};
+
+export type Row = {
+	row: number;
+	seats: Seat[];
 };
 
 export type Seat = {
 	id: number;
 	number: number;
-	row: number;
 	type: string;
 	priceCoefficient: number;
 	isAvailable: boolean;
 };
+
+export type SeatWithRow = Seat & { row: number };
 
 export type FilmInfo = {
 	id: number;

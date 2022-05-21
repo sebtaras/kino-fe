@@ -10,7 +10,6 @@ import {
 	CardMedia,
 	CircularProgress,
 	Container,
-	InputLabel,
 	MenuItem,
 	Select,
 	TextField,
@@ -53,12 +52,13 @@ const Search = () => {
 						labelId="demo-simple-select-label"
 						style={{ width: "20rem", marginLeft: "1rem" }}
 						value={movieId}
-						defaultValue={0}
 						placeholder={"Pick a movie..."}
 						label="Movie"
 						onChange={(e) => setMovieId(e.target.value as number)}
 					>
-						<MenuItem disabled={true}>{"Pick a movie"}</MenuItem>
+						<MenuItem disabled={true} value={0}>
+							{"Pick a movie"}
+						</MenuItem>
 						{movieLoading ? (
 							<CircularProgress />
 						) : (
@@ -103,6 +103,7 @@ const Search = () => {
 							/>
 							<Box style={{}}>
 								<Typography variant="h5">{movieInfo.title}</Typography>
+								<Typography>Ocjena korisnika: {movieInfo.averageScore}/10</Typography>
 								<Typography>Trajanje: {movieInfo.durationMinutes}min</Typography>
 								<Typography>Zanr: {movieInfo.genres.join(", ")}</Typography>
 								<Typography
@@ -144,6 +145,7 @@ const Search = () => {
 							{ratings.map((option: number) => {
 								return (
 									<Button
+										key={option}
 										variant={option === rating ? "contained" : "outlined"}
 										onClick={() => {
 											setRating(option);
@@ -170,6 +172,7 @@ const Search = () => {
 					{movieInfo?.reviews.map((review: Review) => {
 						return (
 							<Box
+								key={review.id}
 								style={{
 									marginBottom: "1rem",
 									border: "1px solid #777",

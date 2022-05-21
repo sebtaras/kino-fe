@@ -25,8 +25,8 @@ import DateTimePicker from "react-datetime-picker";
 
 const Screenings = () => {
 	const navigate = useNavigate();
-	const [movieId, setMovieId] = useState<null | number>(null);
-	const [hall, setHall] = useState<null | number>(null);
+	const [movieId, setMovieId] = useState(0);
+	const [hall, setHall] = useState(0);
 	const [date, setDate] = useState(new Date());
 	const [price, setPrice] = useState(40);
 	const { data: movies, isLoading: movieLoading, error: movieListError } = useMovieList();
@@ -67,14 +67,13 @@ const Screenings = () => {
 						style={{ width: "20rem", marginLeft: "1rem" }}
 						value={movieId}
 						defaultValue={null}
-						placeholder={"Pick a movie..."}
 						label="Movie"
 						onChange={(e) => {
 							setMovieId(e.target.value as number);
 							queryClient.refetchQueries(["movieInfo", e.target.value]);
 						}}
 					>
-						<MenuItem disabled={true}>{"Pick a movie"}</MenuItem>
+						<MenuItem disabled={true}>Pick a movie...</MenuItem>
 						{movieLoading ? (
 							<CircularProgress />
 						) : (
@@ -127,7 +126,7 @@ const Screenings = () => {
 							style={{ width: "20rem", marginLeft: "1rem" }}
 							onChange={(e) => setHall(e.target.value as number)}
 						>
-							<MenuItem disabled={true}>Pick a movie...</MenuItem>
+							<MenuItem disabled={true}>Pick a hall...</MenuItem>
 							{halls &&
 								halls.map((hall: Hall) => {
 									return (

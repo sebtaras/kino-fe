@@ -88,12 +88,7 @@ const Schedule = () => {
 											marginBottom: "2rem",
 										}}
 									>
-										{/* {screenings &&
-							screenings.map((screening: Screening) => { */}
-										{[
-											{ id: 0, startAt: "20" },
-											{ id: 1, startAt: "25" },
-										].map((screening: any) => {
+										{film.screenings.map((screening: Screening) => {
 											return (
 												<Button
 													key={screening.id}
