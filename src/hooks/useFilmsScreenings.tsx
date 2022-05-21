@@ -8,7 +8,6 @@ export const useFilmsScreenings = (date: string) => {
 	const getScreenings = async () => {
 		try {
 			const response = await axios.get(`films?screeningDate=${resultDate}`);
-			console.log(response.data);
 			return response.data;
 		} catch {}
 	};

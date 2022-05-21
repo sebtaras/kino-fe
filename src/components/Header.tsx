@@ -17,15 +17,15 @@ import { loadUser } from "../utils/functions/loadUser";
 
 export default function Header() {
 	const navigate = useNavigate();
-	const pages = ["Schedule", "Search"];
-	const settings = ["Profile", "Logout"];
+	const pages = ["Raspored", "Trazilica"];
+	const settings = ["Profil", "Odjava"];
 
 	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 	const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 	const user = loadUser();
 
 	if (user?.isAdmin) {
-		pages.push("Screenings");
+		pages.push("Projekcije");
 	}
 
 	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -154,11 +154,11 @@ export default function Header() {
 												key={setting}
 												onClick={() => {
 													handleCloseNavMenu();
-													if (setting === "Profile") {
-														navigate("/Profile");
+													if (setting === "Profil") {
+														navigate("/profil");
 													} else {
 														localStorage.clear();
-														navigate("/login");
+														navigate("/prijava");
 													}
 												}}
 											>
@@ -173,11 +173,11 @@ export default function Header() {
 								key={"login"}
 								onClick={(e) => {
 									handleCloseNavMenu();
-									navigate(`/login`);
+									navigate(`/prijava`);
 								}}
 								sx={{ my: 2, color: "white", display: "block" }}
 							>
-								<Typography>{"LOGIN"}</Typography>
+								<Typography>{"PRIJAVA"}</Typography>
 							</Button>
 						)}
 					</Toolbar>

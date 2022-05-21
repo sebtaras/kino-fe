@@ -46,7 +46,7 @@ const LoginPage = () => {
 				>
 					Prijava
 				</Button>
-				<Button style={{ padding: "1rem" }} onClick={() => navigate("/register")}>
+				<Button style={{ padding: "1rem" }} onClick={() => navigate("/registracija")}>
 					Nemas racun?
 				</Button>
 			</Container>

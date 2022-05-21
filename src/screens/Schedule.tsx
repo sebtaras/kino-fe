@@ -149,7 +149,7 @@ const Schedule = () => {
 															flexDirection: "row",
 															alignItems: "center",
 														}}
-														onClick={() => navigate(`/screening/${screening.id}`)}
+														onClick={() => navigate(`/projekcije/${screening.id}`)}
 													>
 														<Box>
 															<Typography>

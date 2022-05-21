@@ -8,7 +8,6 @@ export const useMovieInfo = (id: number) => {
 	const getMovieInfo = async (): Promise<FilmInfo | null> => {
 		try {
 			const response = await axios.get(`films/${id}`);
-			console.log(response.data);
 			return response.data;
 		} catch (error: any) {
 			return null;

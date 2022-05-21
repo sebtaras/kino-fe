@@ -9,7 +9,6 @@ export const useUserReviews = (userId: number) => {
 	const getReviews = async (): Promise<Review[]> => {
 		try {
 			const response = await axios.get(`reviews?userId=${user?.id}`);
-			console.log("use user review", response.data);
 			return response.data;
 		} catch (error: any) {
 			return [];

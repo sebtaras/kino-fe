@@ -62,7 +62,7 @@ const RegisterPage = () => {
 				>
 					Registriraj se
 				</Button>
-				<Button style={{ padding: "1rem" }} onClick={() => navigate("/login")}>
+				<Button style={{ padding: "1rem" }} onClick={() => navigate("/prijava")}>
 					Vec imas racun?
 				</Button>
 			</Container>

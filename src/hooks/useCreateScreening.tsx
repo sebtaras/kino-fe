@@ -23,7 +23,7 @@ export const useCreateScreening = (
 				basePrice,
 			});
 			if (response.status === 200) {
-				alert("Screening added!");
+				alert("Projekcija stvorena!");
 			}
 		} catch (error: any) {
 			if (error.response.status === 409) {

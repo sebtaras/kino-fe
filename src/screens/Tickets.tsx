@@ -15,7 +15,6 @@ const Tickets = () => {
 	const [selectedSeat, setSelectedSeat] = useState<SeatWithRow | null>(null);
 	const { data: screening, isLoading } = useScreening(parseInt(screeningId!));
 	const { mutate: buy } = useBuyTicket(parseInt(screeningId!), selectedSeat);
-	console.log(screening);
 	return (
 		<>
 			<Dialog open={isOpen} onClose={() => setIsOpen(false)}>

@@ -22,14 +22,14 @@ function App() {
 				<AxiosProvider>
 					<BrowserRouter>
 						<Routes>
-							<Route path="/screenings" element={<Screenings />} />
-							<Route path="/schedule" element={<Schedule />} />
-							<Route path="/search" element={<Search />} />
-							<Route path="/screening/:id" element={<Tickets />} />
-							<Route path="/profile" element={<Profile />} />
-							<Route path="/login" element={<LoginPage />} />
-							<Route path="/register" element={<RegisterPage />} />
-							<Route path="*" element={<Navigate to="/schedule" replace={true} />} />
+							<Route path="/projekcije" element={<Screenings />} />
+							<Route path="/raspored" element={<Schedule />} />
+							<Route path="/trazilica" element={<Search />} />
+							<Route path="/projekcije/:id" element={<Tickets />} />
+							<Route path="/profil" element={<Profile />} />
+							<Route path="/prijava" element={<LoginPage />} />
+							<Route path="/registracija" element={<RegisterPage />} />
+							<Route path="*" element={<Navigate to="/raspored" replace={true} />} />
 						</Routes>
 					</BrowserRouter>
 				</AxiosProvider>

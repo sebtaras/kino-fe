@@ -6,7 +6,7 @@ export const usePostReview = (filmId: number, score: number, text: string) => {
 	const axios = useAxiosContext();
 	const user = loadUser();
 	const queryClient = useQueryClient();
-	console.log(user);
+
 	const postReview = async () => {
 		try {
 			const response = await axios.post("reviews", {

@@ -39,12 +39,10 @@ const Screenings = () => {
 	const { data: halls, isLoading: hallsLoading } = useHalls();
 	const queryClient = useQueryClient();
 
-	console.log("DATE IS", date.toISOString());
-
 	useEffect(() => {
 		const user = localStorage.getItem("user") as OptionalUser;
 		if (!user || user.isAdmin) {
-			navigate("/schedule");
+			navigate("/raspored");
 		}
 	});
 
@@ -109,7 +107,6 @@ const Screenings = () => {
 							<DateTimePicker
 								locale="hr-HR"
 								onChange={(date: Date) => {
-									console.log("CHANGING DATE TO:", date);
 									setDate(date);
 								}}
 								value={date}
