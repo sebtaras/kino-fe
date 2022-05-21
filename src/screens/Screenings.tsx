@@ -32,7 +32,7 @@ const Screenings = () => {
 	const { data: movies, isLoading: movieLoading, error: movieListError } = useMovieList();
 	const { data: movieInfo, isLoading: infoLoading } = useMovieInfo(movieId!);
 	const { data: screenings, isLoading: screeningsLoading } = useScreeningsInHall(
-		date.toISOString().split("T")[0],
+		date,
 		hall!
 	);
 	const { mutate: createScreening } = useCreateScreening(movieId!, hall!, date, price);
@@ -106,7 +106,9 @@ const Screenings = () => {
 						<Box style={{ padding: "1rem" }}>
 							<DateTimePicker
 								locale="hr-HR"
+								clearIcon={null}
 								onChange={(date: Date) => {
+									console.log("new date", date);
 									setDate(date);
 								}}
 								value={date}
@@ -140,7 +142,7 @@ const Screenings = () => {
 						onClick={() => {
 							queryClient.refetchQueries([
 								"screeningsHall",
-								date.toISOString().split("T")[0] + hall,
+								date.toLocaleDateString() + hall,
 							]);
 						}}
 					>

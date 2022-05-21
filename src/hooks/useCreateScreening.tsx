@@ -37,7 +37,10 @@ export const useCreateScreening = (
 			alert("Konflikt u rasporedu. Promjeni vrijeme projekcije.");
 		},
 		onSuccess: () => {
-			queryClient.refetchQueries(["screeningsHall", startAt.split("T")[0] + hallId]);
+			queryClient.refetchQueries([
+				"screeningsHall",
+				realDate.toLocaleDateString() + hallId,
+			]);
 			queryClient.refetchQueries("filmsScreenings");
 		},
 	});
