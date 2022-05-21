@@ -13,13 +13,12 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { OptionalUser } from "../types/OptionalUser";
 import { loadUser } from "../utils/functions/loadUser";
 
 export default function Header() {
 	const navigate = useNavigate();
 	const pages = ["Schedule", "Search"];
-	const settings = ["Logout"];
+	const settings = ["Profile", "Logout"];
 
 	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 	const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);

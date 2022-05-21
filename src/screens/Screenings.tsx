@@ -66,7 +66,6 @@ const Screenings = () => {
 					<Select
 						style={{ width: "20rem", marginLeft: "1rem" }}
 						value={movieId}
-						defaultValue={null}
 						label="Movie"
 						onChange={(e) => {
 							setMovieId(e.target.value as number);

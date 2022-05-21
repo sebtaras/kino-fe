@@ -10,7 +10,7 @@ import {
 	Typography,
 	Chip,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { useNavigate } from "react-router-dom";
@@ -55,9 +55,8 @@ const Schedule = () => {
 					{films &&
 						films.map((film: FilmInfo) => {
 							return (
-								<>
+								<Box key={film.id}>
 									<Box
-										key={film.id}
 										style={{
 											padding: "1rem",
 											display: "flex",
@@ -112,11 +111,8 @@ const Schedule = () => {
 												</Button>
 											);
 										})}
-										{/* {screenings?.length === 0 && (
-											<Typography>Nema projekcija u ovoj dvorani</Typography>
-										)} */}
 									</Container>
-								</>
+								</Box>
 							);
 						})}
 				</Container>

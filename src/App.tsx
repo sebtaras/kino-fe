@@ -12,8 +12,8 @@ import { AxiosProvider } from "./context/AxiosContext";
 import Schedule from "./screens/Schedule";
 import Search from "./screens/Search";
 import Screenings from "./screens/Screenings";
-import { LocalizationProvider } from "@mui/x-date-pickers";
 import Tickets from "./screens/Tickets";
+import Profile from "./screens/Profile";
 
 function App() {
 	return (
@@ -26,7 +26,7 @@ function App() {
 							<Route path="/schedule" element={<Schedule />} />
 							<Route path="/search" element={<Search />} />
 							<Route path="/screening/:id" element={<Tickets />} />
-							{/* <Route path="/profile" element={<Profile />} /> */}
+							<Route path="/profile" element={<Profile />} />
 							<Route path="/login" element={<LoginPage />} />
 							<Route path="/register" element={<RegisterPage />} />
 							<Route path="*" element={<Navigate to="/schedule" replace={true} />} />

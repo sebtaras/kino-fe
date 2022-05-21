@@ -1,29 +1,25 @@
 import { useMutation, useQueryClient } from "react-query";
+import { SeatWithRow } from "../types/FilmInfo";
 import { loadUser } from "../utils/functions/loadUser";
 import { useAxiosContext } from "./useAxiosContext";
 
-export const usePostReview = (filmId: number, score: number, text: string) => {
+export const useDeleteReview = (reviewId: number) => {
 	const axios = useAxiosContext();
-	const user = loadUser();
 	const queryClient = useQueryClient();
-	console.log(user);
+	const user = loadUser();
 	const postReview = async () => {
 		try {
-			const response = await axios.post("reviews", {
-				userId: user?.id,
-				filmId,
-				score,
-				text,
-			});
+			const response = await axios.delete(`reviews/${reviewId}`);
 			return response;
-		} catch (error: any) {}
+		} catch (error: any) {
+			console.log(error);
+		}
 	};
 
 	return useMutation(postReview, {
 		onError: (error) => console.log(error),
 		onSuccess: () => {
-			queryClient.refetchQueries(["movieInfo", filmId]);
-			queryClient.refetchQueries(["reviews", user?.id]);
+			queryClient.refetchQueries(["reviews", user!.id]);
 		},
 	});
 };

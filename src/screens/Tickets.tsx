@@ -2,7 +2,7 @@ import { Box, Button, Container, Dialog, Typography } from "@mui/material";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header";
-import { useBuyTicket } from "../hooks/usebuyTicket";
+import { useBuyTicket } from "../hooks/useBuyTicket";
 import { useScreening } from "../hooks/useScreening";
 import { Row, Seat, SeatWithRow } from "../types/FilmInfo";
 import { getRowNumber } from "../utils/functions/getRowNumber";
@@ -55,12 +55,13 @@ const Tickets = () => {
 							paddingTop: "1rem",
 						}}
 					>
-						<Typography variant="h4">Movie name</Typography>
-						<Typography variant="h4">Hall name</Typography>
+						<Typography variant="h4">{screening.filmTitle}</Typography>
+						<Typography variant="h4">{screening.hallName}</Typography>
 						<Typography variant="h4">{timestampToDate(screening.startAt)}</Typography>
 						<Box style={{ display: "flex", flexDirection: "row" }}>
-							<Typography variant="h4">{timestampToHours(screening.startAt)}-</Typography>
-							<Typography variant="h4">{timestampToHours(screening.endAt)}</Typography>
+							<Typography variant="h4">
+								{timestampToHours(screening.startAt)}-{timestampToHours(screening.endAt)}
+							</Typography>
 						</Box>
 					</Container>
 					<Container

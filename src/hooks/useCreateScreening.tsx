@@ -32,6 +32,7 @@ export const useCreateScreening = (
 		onError: (error) => console.log(error),
 		onSuccess: () => {
 			queryClient.refetchQueries(["screeningsHall", startAt.split("T")[0] + hallId]);
+			queryClient.refetchQueries("filmsScreenings");
 		},
 	});
 };
