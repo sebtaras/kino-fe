@@ -62,7 +62,7 @@ const Screenings = () => {
 						marginTop: "2rem",
 					}}
 				>
-					<Typography>Select a movie to create a projection</Typography>
+					<Typography>Odaberi film</Typography>
 					<Select
 						style={{ width: "20rem", marginLeft: "1rem" }}
 						value={movieId}
@@ -92,19 +92,19 @@ const Screenings = () => {
 						disabled={movieId === null}
 						onClick={() => queryClient.refetchQueries(["movieInfo", movieId])}
 					>
-						Select
+						Odaberi
 					</Button>
 				</Container>
 				<Container>
 					<Box style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
 						{movieInfo?.durationMinutes && (
 							<Typography style={{ marginTop: "1rem" }}>
-								Movie duration: {minutesToHours(movieInfo.durationMinutes)}
+								Trajanje: {minutesToHours(movieInfo.durationMinutes)}
 							</Typography>
 						)}
 					</Box>
 					<Box style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-						<Typography>Date</Typography>
+						<Typography>Datum i vrijeme</Typography>
 						<Box style={{ padding: "1rem" }}>
 							<DateTimePicker
 								locale="hr-HR"
@@ -118,7 +118,7 @@ const Screenings = () => {
 						</Box>
 					</Box>
 					<Box style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-						<Typography>Hall</Typography>
+						<Typography>Dvorana</Typography>
 						<Select
 							value={hall}
 							label="Hall"
@@ -209,7 +209,7 @@ const Screenings = () => {
 						disabled={!hall || !movieId}
 						onClick={() => createScreening()}
 					>
-						Create screening
+						Stvori projekciju
 					</Button>
 				</Container>
 			</Container>

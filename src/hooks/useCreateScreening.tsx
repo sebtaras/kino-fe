@@ -25,11 +25,17 @@ export const useCreateScreening = (
 			if (response.status === 200) {
 				alert("Screening added!");
 			}
-		} catch (error: any) {}
+		} catch (error: any) {
+			if (error.response.status === 409) {
+				alert("Konflikt u rasporedu, izaberi drugo vrijeme projekcije.");
+			}
+		}
 	};
 
 	return useMutation(createScreening, {
-		onError: (error) => console.log(error),
+		onError: (error) => {
+			alert("Konflikt u rasporedu. Promjeni vrijeme projekcije.");
+		},
 		onSuccess: () => {
 			queryClient.refetchQueries(["screeningsHall", startAt.split("T")[0] + hallId]);
 			queryClient.refetchQueries("filmsScreenings");

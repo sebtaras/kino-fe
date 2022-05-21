@@ -9,8 +9,11 @@ import {
 	CardMedia,
 	Typography,
 	Chip,
+	IconButton,
+	Dialog,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { useNavigate } from "react-router-dom";
@@ -20,12 +23,19 @@ import { useFilmsScreenings } from "../hooks/useFilmsScreenings";
 import { useQueryClient } from "react-query";
 import { FilmInfo, Hall, Screening } from "../types/FilmInfo";
 import { timestampToHours } from "../utils/functions/timestampToHours";
+import { loadUser } from "../utils/functions/loadUser";
+import { useDeleteScreening } from "../hooks/useDeleteScreening";
+import { timestampToDate } from "../utils/functions/timestampToDate";
 
 const Schedule = () => {
 	const [selectedTab, setSelectedTab] = useState(getDate(0));
+	const [selectedScreening, setSelectedScreening] = useState<null | Screening>(null);
+	const [selectedTitle, setSelectedTitle] = useState("");
+	const [open, setOpen] = useState(false);
 	const queryClient = useQueryClient();
 	const navigate = useNavigate();
-
+	const user = loadUser();
+	const { mutate: deleteScreening } = useDeleteScreening(selectedScreening!);
 	const handleChange = (event: React.SyntheticEvent, newValue: string) => {
 		setSelectedTab(newValue);
 		queryClient.refetchQueries(["filmsScreenings", newValue]);
@@ -44,6 +54,37 @@ const Schedule = () => {
 
 	return (
 		<>
+			<Dialog open={open} onClose={() => setOpen(false)}>
+				<Box
+					style={{
+						margin: "1rem",
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+					}}
+				>
+					<Typography variant="h5">{selectedTitle}</Typography>
+					{selectedScreening && (
+						<>
+							<Typography>
+								{timestampToDate(selectedScreening.startAt)}{" "}
+								{timestampToHours(selectedScreening.startAt)}
+							</Typography>
+							<Typography>{selectedScreening.hallName}</Typography>
+						</>
+					)}
+				</Box>
+				<Button
+					style={{ margin: "2rem", marginTop: "0" }}
+					variant="contained"
+					onClick={() => {
+						deleteScreening();
+						setOpen(false);
+					}}
+				>
+					Potvrdi brisanje projekcije
+				</Button>
+			</Dialog>
 			<Header />
 			<Container maxWidth={"lg"} style={{ marginTop: "1rem" }}>
 				<Tabs value={selectedTab} onChange={handleChange} centered>
@@ -83,32 +124,57 @@ const Schedule = () => {
 										style={{
 											display: "flex",
 											flexWrap: "wrap",
-											marginLeft: "1rem",
 											marginBottom: "2rem",
 										}}
 									>
 										{film.screenings.map((screening: Screening) => {
 											return (
-												<Button
-													key={screening.id}
+												<Box
 													style={{
-														marginRight: "1rem",
+														display: "flex",
 														border: "1px solid #888",
 														borderRadius: 10,
-														padding: 5,
-														display: "flex",
-														flexDirection: "row",
-														alignItems: "center",
+														marginRight: "1rem",
+														justifyContent: "center",
 													}}
-													onClick={() => navigate(`/screening/${screening.id}`)}
 												>
-													<Box>
-														<Typography>
-															{" "}
-															{timestampToHours(screening.startAt)}
-														</Typography>
-													</Box>
-												</Button>
+													<Button
+														key={screening.id}
+														style={{
+															padding: "0.2rem",
+															minHeight: 0,
+															minWidth: "2.2rem",
+															margin: "0.2rem",
+															display: "flex",
+															flexDirection: "row",
+															alignItems: "center",
+														}}
+														onClick={() => navigate(`/screening/${screening.id}`)}
+													>
+														<Box>
+															<Typography>
+																{timestampToHours(screening.startAt)}
+															</Typography>
+														</Box>
+													</Button>
+													{user?.isAdmin && (
+														<IconButton
+															style={{
+																padding: "0.2rem",
+																minHeight: 0,
+																minWidth: "2.2rem",
+																margin: "0.2rem",
+															}}
+															onClick={() => {
+																setOpen(true);
+																setSelectedScreening(screening);
+																setSelectedTitle(film.title);
+															}}
+														>
+															<DeleteIcon />
+														</IconButton>
+													)}
+												</Box>
 											);
 										})}
 									</Container>
