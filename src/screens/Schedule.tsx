@@ -87,7 +87,13 @@ const Schedule = () => {
 			</Dialog>
 			<Header />
 			<Container maxWidth={"lg"} style={{ marginTop: "1rem" }}>
-				<Tabs value={selectedTab} onChange={handleChange} centered>
+				<Tabs
+					value={selectedTab}
+					onChange={handleChange}
+					centered
+					scrollButtons
+					allowScrollButtonsMobile
+				>
 					{dates.map((date) => {
 						return <Tab key={date} label={date} value={date} />;
 					})}
