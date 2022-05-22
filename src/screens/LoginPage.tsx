@@ -25,6 +25,7 @@ const LoginPage = () => {
 			>
 				{errorMsg && <Typography align="left">{errorMsg}</Typography>}
 				<TextField
+					data-testid="username"
 					placeholder="Korisnicko ime..."
 					variant="filled"
 					size="small"
@@ -32,6 +33,7 @@ const LoginPage = () => {
 					onChange={(e) => setUsername(e.target.value)}
 				/>
 				<TextField
+					data-testid="password"
 					placeholder="Lozinka..."
 					variant="filled"
 					type={"password"}
@@ -39,6 +41,7 @@ const LoginPage = () => {
 					onChange={(e) => setPassword(e.target.value)}
 				/>
 				<Button
+					data-testid="login-button"
 					disabled={isLoading}
 					style={{ marginTop: "1rem" }}
 					variant="contained"

@@ -26,6 +26,7 @@ export default function Header() {
 
 	if (user?.isAdmin) {
 		pages.push("Projekcije");
+		pages.push("Filmovi");
 	}
 
 	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {

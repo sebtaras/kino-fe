@@ -14,6 +14,7 @@ import Search from "./screens/Search";
 import Screenings from "./screens/Screenings";
 import Tickets from "./screens/Tickets";
 import Profile from "./screens/Profile";
+import Films from "./screens/Films";
 
 function App() {
 	return (
@@ -25,6 +26,7 @@ function App() {
 							<Route path="/projekcije" element={<Screenings />} />
 							<Route path="/raspored" element={<Schedule />} />
 							<Route path="/trazilica" element={<Search />} />
+							<Route path="/filmovi" element={<Films />} />
 							<Route path="/projekcije/:id" element={<Tickets />} />
 							<Route path="/profil" element={<Profile />} />
 							<Route path="/prijava" element={<LoginPage />} />

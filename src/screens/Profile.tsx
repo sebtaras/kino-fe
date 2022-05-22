@@ -16,9 +16,9 @@ import { useUserReviews } from "../hooks/useUserReviews";
 import { Review } from "../types/FilmInfo";
 import { timestampToDate } from "../utils/functions/timestampToDate";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Edit } from "@material-ui/icons";
 import EditIcon from "@mui/icons-material/Edit";
 import { useDeleteReview } from "../hooks/useDeleteReview";
-import { Edit } from "@material-ui/icons";
 import { useEditReview } from "../hooks/useEditReview";
 
 const Profile = () => {
